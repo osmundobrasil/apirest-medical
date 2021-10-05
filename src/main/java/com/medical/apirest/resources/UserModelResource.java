@@ -27,6 +27,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Optional;
 
 
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value="/api")
@@ -81,9 +82,9 @@ public class UserModelResource {
 	@GetMapping("/validatePassword")
     public ResponseEntity<Boolean> validatePassword(@RequestParam String login,
                                                 	@RequestParam String password) {
-
+		
         Optional<UserModel> optUser = userModelRepository.findByLogin(login);
-        if (optUser.isEmpty()) {
+        if (optUser == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
         }
 
