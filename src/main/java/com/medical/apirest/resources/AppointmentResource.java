@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.medical.apirest.models.Appointment;
+import com.medical.apirest.models.Doctor;
+import com.medical.apirest.repository.AppointmentByUserId;
 import com.medical.apirest.repository.AppointmentRepository;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -39,6 +41,7 @@ public class AppointmentResource {
 	public Appointment SingleAppointmentList(@PathVariable(value="id") long id){
 		return appointmentRepository.findById(id);
 	}
+
 	
 	@ApiOperation(value="Save appointment")
 	@PostMapping("/appointment")
@@ -56,6 +59,17 @@ public class AppointmentResource {
 	@PutMapping("/appointment")
 	public Appointment updadeAppointment(@RequestBody Appointment appointment) {
 		return appointmentRepository.save(appointment);
+	}
+	
+	
+	@Autowired
+	private AppointmentByUserId appointmentByUserId;
+
+	@ApiOperation(value="list of appointment by customer")
+	@GetMapping("/appointmentByUserId/{IdUser}")
+	public List<Object> getByIdUser(@PathVariable(value="IdUser") Integer IdUser) {
+	    List<Object> appointment = appointmentByUserId.getAppByIdUser(IdUser);
+	    return appointment;
 	}
 
 }

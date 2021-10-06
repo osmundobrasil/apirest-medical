@@ -37,12 +37,13 @@ public class Appointment implements Serializable{
 
 	@Column(nullable = false)
 	private long status;
-
-	@ManyToOne
-    private UserModel userModel;
 	
-	@ManyToOne
-    private Doctor doctor;
+	@Column(nullable = false)
+	private Integer user_model_id;
+	
+	@Column(nullable = false)
+	private long doctor_id;
+	
 
 	public long getId() {
 		return id;
@@ -92,20 +93,20 @@ public class Appointment implements Serializable{
 		this.status = status;
 	}
 
-	public UserModel getUserModel() {
-		return userModel;
+	public long getUser_model_id() {
+		return user_model_id;
 	}
 
-	public void setUserModel(UserModel userModel) {
-		this.userModel = userModel;
+	public void setUser_model_id(Integer user_model_id) {
+		this.user_model_id = user_model_id;
 	}
 
-	public Doctor getDoctor() {
-		return doctor;
+	public long getDoctor_id() {
+		return doctor_id;
 	}
 
-	public void setDoctor(Doctor doctor) {
-		this.doctor = doctor;
+	public void setDoctor_id(long doctor_id) {
+		this.doctor_id = doctor_id;
 	}
 
 	

@@ -49,7 +49,6 @@ public class DoctorResource {
 	
 	@ApiOperation(value="Delete doctor")
 	@DeleteMapping("/doctor")
-	@PreAuthorize("hasRole('ADMIN')")
 	public void deleteDoctor(@RequestBody Doctor doctor) {
 		doctorRepository.delete(doctor);
 	}

@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.medical.apirest.models.UserModel;
+import com.medical.apirest.repository.UserModelLogin;
 import com.medical.apirest.repository.UserModelRepository;
 
 import io.swagger.annotations.Api;
@@ -52,6 +54,16 @@ public class UserModelResource {
 		return userModelRepository.findAll();
 	}
 	
+	@Autowired
+	private UserModelLogin userModelLogin;
+
+	@ApiOperation(value="Get users by login")
+	@GetMapping("/user/userByLogin/{login}")
+	public Object getByLogin(@PathVariable(value="login") String login) {
+	    Object user =  userModelLogin.getUserByLogin(login);
+	    return user;
+	}
+	
 //	//@ApiOperation(value="Get single doctor")
 //	@GetMapping("/doctor/{id}")
 //	public Doctor SingleDoctorList(@PathVariable(value="id") long id){
@@ -79,7 +91,7 @@ public class UserModelResource {
 //	}
 	
 	@ApiOperation(value="Validate password")
-	@GetMapping("/validatePassword")
+	@PostMapping("/validatePassword")
     public ResponseEntity<Boolean> validatePassword(@RequestParam String login,
                                                 	@RequestParam String password) {
 		
